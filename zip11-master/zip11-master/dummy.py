@@ -1,0 +1,137 @@
+from selenium import webdriver
+import pyautogui as p
+
+
+def fun(s):
+    s=s.split()
+    for i in range(len(s)):
+        s[i]=s[i].lower()
+
+    if('hotspot' in s):
+        p.moveTo(1637,1052)
+        p.click()
+        time.sleep(2)
+        p.moveTo(1737,977)
+        p.click()
+        p.moveTo(1520,1052)
+        p.click()
+
+    if('dc' in s):
+        p.press('win')
+        p.typewrite("dc")
+        time.sleep(2)
+        p.press("enter")
+        time.sleep(4)
+        p.typewrite("gokulravi")
+        p.press("enter")
+
+    if('cyberoam' in s):
+        p.press("win")
+        p.typewrite("edge")
+        time.sleep(2)
+        p.press("enter")
+        time.sleep(2)
+        p.typewrite("https://172.16.1.1:8090/")
+        time.sleep(2)
+        p.press("enter")
+        time.sleep(2)
+        p.moveTo(780,444)
+        p.click()
+        time.sleep(2)
+        p.moveTo(817,678)
+        p.click()
+        time.sleep(2)
+        p.moveTo(761,393)
+        p.click()
+        time.sleep(2)
+        p.moveTo(759,441)
+        p.click()
+        time.sleep(2)
+        p.moveTo(749,498)
+        p.click()
+        p.moveTo(1882,15)
+        p.click()
+        time.sleep(2)
+    if('logout' in s):
+        p.press("win")
+        p.typewrite("edge")
+        time.sleep(2)
+        p.press("enter")
+        time.sleep(2)
+        p.typewrite("https://172.16.1.1:8090/")
+        time.sleep(2)
+        p.press("enter")
+        time.sleep(2)
+        p.moveTo(780,444)
+        p.click()
+        time.sleep(2)
+        p.moveTo(817,678)
+        p.click()
+        time.sleep(2)
+        p.moveTo(761,393)
+        p.click()
+        time.sleep(2)
+        p.moveTo(759,441)
+        p.click()
+        time.sleep(2)
+        p.moveTo(749,498)
+        p.click()
+        time.sleep(2)
+        p.click()
+        p.moveTo(1882,15)
+        #p.click()
+        time.sleep(2)
+
+
+    if('music' in s or 'song' in s or 'favourite' in s):
+        p.press('win')
+        p.typewrite("chrome")
+        time.sleep(2)
+        p.press("enter")
+        time.sleep(2)
+        p.typewrite("https://www.youtube.com/watch?v=i_yLpCLMaKk")
+        time.sleep(1)
+        p.press("enter")
+
+
+import time
+username1=input("USERNAME :")
+print()
+password1=input('PASSWORD :')
+options=webdriver.ChromeOptions()
+options.add_argument('--headless')
+driver=webdriver.Chrome(options=options)
+#driver=webdriver.Chrome('C:\\Users\\bellapukonda\\Desktop\\auto\\chromedriver.exe')
+driver.get('https://bellapukonda.pythonanywhere.com/authen/login')
+ele=driver.find_element_by_name('email')
+ele.send_keys(username1)
+ele=driver.find_element_by_name('pass')
+ele.send_keys(password1)
+ele=driver.find_element_by_css_selector('body > div.col-lg-6.col-lg-offset-3.col-md-6.col-md-offset-3.col-sm-10.col-sm-offset-1 > div > form > button')
+ele.click()
+while(1):
+    try:
+        driver.get('https://bellapukonda.pythonanywhere.com/checker')
+        ele=driver.find_element_by_css_selector("body > div > div > div > h2:nth-child(3)")
+        pp=ele.text
+        if(pp!=1 or pp!='1'):
+            print(pp)
+        ele=driver.find_element_by_name('button')
+        ele.click()
+        fun(pp)        
+        time.sleep(3)
+    except:
+        print("RETYRING...")
+        #driver=webdriver.Chrome('C:\\Users\\bellapukonda\\Desktop\\auto\\chromedriver.exe')
+        options=webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        driver=webdriver.Chrome(options=options)
+        driver.get('https://bellapukonda.pythonanywhere.com/authen/login')
+        ele=driver.find_element_by_name('email')
+        ele.send_keys(username1)
+        ele=driver.find_element_by_name('pass')
+        ele.send_keys(password1)
+        ele=driver.find_element_by_css_selector('body > div.col-lg-6.col-lg-offset-3.col-md-6.col-md-offset-3.col-sm-10.col-sm-offset-1 > div > form > button')
+        ele.click()
+
+
