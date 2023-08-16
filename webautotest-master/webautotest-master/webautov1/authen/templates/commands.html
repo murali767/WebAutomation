@@ -1,0 +1,122 @@
+{%  load static %}
+
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Display1</title>
+	<style>
+
+	body{
+
+    padding-top: 50px;
+    font-family: Montserrat, sans-serif;
+    background-image: url("{% static 'images/bg1.jpg' %}");
+    background-size: cover;
+
+}
+#result{
+  height:200px;
+  border:1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 0 10px 0 #bbb;
+  margin-bottom: 30px;
+  font-size: 14px;
+  line-height: 25px;
+}
+.classdiv{
+
+  align:center;
+}
+
+.listen{
+  font-size: 20px;
+  position: absolute;
+  top: 240px;
+  left: 50%;
+}
+
+#textboxid
+{
+    height:100px;
+    font-size:14pt;
+	cols:10;
+	rows:5;
+}
+
+.sub{
+
+  font-size: 20px;
+}
+
+.text1{
+  color:white;
+}
+
+	</style>
+  </head>
+  <body>
+<h1 align="center" class="text1" id="heading">CLICK ON LISTEN TO START SPEAKING</h1>
+<div id="result"></div>
+<button class="listen" onclick="start()" >SPEAK</button>
+
+
+<h2 align="center" class="text1" >CLICK AGAIN ON LISTEN TO RELISTEN</h2>
+
+
+<div class="formdiv" class="inputvoice">
+  <form action="/insert" method="post">
+  {% csrf_token %}
+  <h1  class="text1" >YOU SAID: </h1>
+<input type="text" id="textboxid"  name="voicedata" placeholder="Text...">
+<br>
+<br>
+  <button class="sub" type="submit" >Submit</button>
+
+  </form>
+</div>
+
+<script type="text/javascript" >
+
+
+var r=document.getElementById('result');
+var r1=document.getElementById('textboxid');
+function start(){
+  if('webkitSpeechRecognition' in window){
+    var speechRecognizer=new webkitSpeechRecognition();
+    speechRecognizer.continuos=true;
+    speechRecognizer.interimResults=true;
+    speechRecognizer.lang='en-IN';
+    speechRecognizer.start();
+    var finalTrans='';
+    speechRecognizer.onresult=function(event){
+      var interimTrans='';
+      for(var i=0;i<event.results.length;i++){
+        var trans=event.results[i][0].transcript;
+
+        if(event.results[i].isFinal){
+          finalTrans+=trans;
+        }
+        else{
+          interimTrans+=trans;
+        }
+      }
+      r.innerHTML=  '<span style="color:white">'+ finalTrans+ '</span>'+'<span style="color:red">'+ interimTrans+'</span>';
+      r1.value=finalTrans;
+    }
+    speechRecognizer.onerror=function(event){
+
+    };
+  }
+  else{
+r.innerHTML='your browser is not supported';
+  }
+
+}
+
+
+</script>
+
+</body>
+</html>
